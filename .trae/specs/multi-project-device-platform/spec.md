@@ -13,7 +13,7 @@
 - **数据库**: SQLite（轻量级、零配置、适合运维场景）
 - **ORM**: MyBatis-Plus（提供强大的CRUD和分页功能）
 - **API风格**: RESTful API
-- **认证**: JWT Token认证
+- **认证**: Sa-Token（轻量级权限认证框架，支持Token认证、会话管理、路由拦截）
 - **API文档**: Swagger/OpenAPI 3.0
 
 ### 前端技术栈
@@ -96,14 +96,7 @@
 - 设备参数：自定义设备参数和参数值
 - 设备照片：支持设备照片上传和查看
 
-#### 2.2 设备二维码管理
-
-- 每个设备生成唯一二维码
-- 二维码包含设备ID和项目ID
-- 支持二维码批量生成和打印
-- 扫码快速查看设备信息
-
-#### 2.3 设备全生命周期追踪
+#### 2.2 设备全生命周期追踪
 
 - 设备入库记录
 - 设备领用/分配记录
@@ -154,7 +147,6 @@
 
 - 巡检计划制定（周期、路线）
 - 巡检任务下发
-- 巡检点二维码扫描签到
 - 巡检项检查（设备状态、参数记录）
 - 巡检异常记录
 - 巡检报告生成
@@ -277,7 +269,6 @@
 - 卡片列表展示为主
 - 全屏详情页
 - 简化表单输入
-- 扫码快捷入口
 - 离线数据缓存（可选）
 
 ### 平板适配（768px - 1024px）
@@ -306,8 +297,6 @@
 - GET/POST `/api/devices` - 设备列表/创建设备
 - GET/PUT/DELETE `/api/devices/{id}` - 设备详情/更新/删除
 - GET `/api/devices/{id}/lifecycle` - 设备生命周期
-- GET `/api/devices/qrcode/{id}` - 获取设备二维码
-- POST `/api/devices/batch-qrcode` - 批量生成二维码
 
 ### 运维接口
 
@@ -320,11 +309,10 @@
 
 - GET/POST `/api/inspections/plans` - 巡检计划
 - GET/POST `/api/inspections/tasks` - 巡检任务
-- POST `/api/inspections/checkin` - 巡检查到
 
 ## 安全要求
 
-- JWT Token认证，Token有效期24小时
+- Sa-Token认证框架，Token会话管理
 - 密码加密存储（BCrypt）
 - SQL注入防护
 - XSS攻击防护
@@ -348,7 +336,7 @@ backend/
 ├── src/main/java/com/operation/
 │   ├── OperationApplication.java
 │   ├── config/
-│   │   ├── SecurityConfig.java
+│   │   ├── SaTokenConfig.java
 │   │   ├── CorsConfig.java
 │   │   └── SwaggerConfig.java
 │   ├── common/
@@ -411,13 +399,12 @@ frontend/
 - 项目脚手架创建
 - 数据库表设计实现
 - 基础CRUD功能开发
-- 用户认证模块
+- 用户认证模块（Sa-Token）
 
 ### 第二阶段：核心功能开发
 
 - 项目管理模块
 - 设备管理模块
-- 设备二维码功能
 
 ### 第三阶段：业务流程开发
 
