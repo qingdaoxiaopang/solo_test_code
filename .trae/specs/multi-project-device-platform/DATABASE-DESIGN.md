@@ -2,20 +2,25 @@
 
 ## 1. 基本设计原则
 
-### 1.1 范式设计
+### 1.1 数据库选择
+
+- 使用PostgreSQL作为数据库存储
+- PostgreSQL版本：13.x及以上
+
+### 1.2 范式设计
 
 - 遵循第三范式（3NF）设计
 - 避免数据冗余
 - 确保数据一致性
 
-### 1.2 模块化设计
+### 1.3 模块化设计
 
 - 按业务模块划分表：`sys_*`系统、`prj_*`项目、`dev_*`设备、`ins_*`安装、`opr_*`运维
 - 模块之间依赖清晰
 
-### 1.3 扩展性
+### 1.4 扩展性
 
-- 预留扩展字段：`ext1`、`ext2`、`ext_json`（JSON类型，可选）
+- 预留扩展字段：`ext1`、`ext2`、`ext_json`（JSONB类型，可选）
 - 使用字典管理状态和类型
 
 ## 2. 表命名规范
@@ -40,24 +45,43 @@
 ### 3.1 主键
 
 - 统一使用`id`作为主键名
-- 使用BIGINT类型（64位），自增：`id BIGINT PRIMARY KEY AUTOINCREMENT`
-- 使用雪花ID或UUID策略（可选）
+- 使用BIGINT类型（64位）
+- 使用雪花算法生成ID值
+- SQL定义：`id BIGINT PRIMARY KEY`
 
 ### 3.2 通用字段
 
 每张表必须包含以下字段：
 
 ```sql
+-- 主键ID（雪花算法生成）
+id BIGINT PRIMARY KEY
+
+-- 创建人ID
+create_by BIGINT
+
+-- 创建人所在部门ID
+create_dept_id BIGINT
+
+-- 更新人ID
+update_by BIGINT
+
 -- 创建时间
-create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 -- 更新时间
-update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+-- 是否删除：0-未删除，1-已删除
+deleted SMALLINT NOT NULL DEFAULT 0
+
+-- 备注
+remark VARCHAR(500)
 ```
 
 ### 3.3 布尔类型
 
-- 使用TINYINT（0/1）表示：`status TINYINT NOT NULL DEFAULT 1`
+- 使用SMALLINT（0/1）表示：`status SMALLINT NOT NULL DEFAULT 1`
 - 1表示启用/是，0表示禁用/否
 
 ### 3.4 状态/类型字段
@@ -68,7 +92,7 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ### 3.5 时间字段
 
-- 统一使用DATETIME类型
+- 统一使用TIMESTAMP类型
 - 时间字段命名：`*_time`、`*_date`
 - 精度到秒级别
 
@@ -81,7 +105,7 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 - 短文本（<255）：VARCHAR
 - 长文本（>=255）：TEXT
-- 大文本：使用CLOB或单独的文件存储
+- JSON数据：使用JSONB类型，支持索引和查询
 
 ### 3.8 关联字段
 
@@ -91,9 +115,9 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ### 3.9 软删除
 
-- 使用`deleted`字段表示逻辑删除：`deleted TINYINT NOT NULL DEFAULT 0`
+- 使用`deleted`字段表示逻辑删除：`deleted SMALLINT NOT NULL DEFAULT 0`
 - 0表示未删除，1表示已删除
-- 查询时过滤已删除记录
+- 查询时必须过滤已删除记录：`WHERE deleted = 0`
 
 ## 4. 索引设计规范
 
@@ -108,7 +132,7 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ### 4.3 普通索引
 
-- 查询条件字段添加索引：`project_id`、`status`
+- 查询条件字段添加索引：`project_id`、`status`、`create_by`、`create_dept_id`
 - 排序字段添加索引
 - 多字段索引遵循最左前缀原则
 
@@ -119,8 +143,8 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ## 5. 字符集和排序规则
 
-- 数据库字符集使用`UTF-8`或`UTF-8MB4`
-- SQLite默认使用UTF-8
+- 数据库字符集使用`UTF8`
+- 排序规则使用`zh_CN.UTF8`
 
 ## 6. 数据库初始化脚本
 
@@ -153,7 +177,7 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 - 设备表：包含详细的设备信息、状态、位置
 - 设备生命周期：独立的事件表记录状态变更
-- 设备参数：动态参数使用JSON或关联表存储
+- 设备参数：动态参数使用JSONB或关联表存储
 
 ### 7.4 安装模块
 
@@ -167,14 +191,27 @@ update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 - 巡检计划：支持周期配置
 - 备件管理：库存操作记录要完整
 
-## 8. 性能优化
+## 8. 雪花算法配置
+
+### 8.1 算法说明
+
+- 使用Twitter雪花算法（Snowflake）生成唯一ID
+- 64位ID组成：1位符号位 + 41位时间戳 + 10位机器ID + 12位序列号
+
+### 8.2 机器ID配置
+
+- 机器ID范围：0-1023
+- 建议通过配置文件或环境变量指定
+
+## 9. 性能优化
 
 - 避免使用`SELECT *`查询所有字段
 - 使用LIMIT分页
 - 大表建立合适的索引
 - 使用缓存减轻数据库压力
+- JSONB字段使用GIN索引优化查询
 
-## 9. 数据安全
+## 10. 数据安全
 
 - 敏感字段加密存储（如密码）
 - 操作日志完整记录
