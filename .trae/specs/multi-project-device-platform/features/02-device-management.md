@@ -252,7 +252,6 @@
 | deleted | SMALLINT | 是否删除 |
 | remark | VARCHAR(500) | 备注 |
 | project_id | BIGINT | 项目ID |
-| template_id | BIGINT | 巡检模板ID |
 | name | VARCHAR(100) | 计划名称 |
 | cycle_type | VARCHAR(20) | 周期类型 |
 | cycle_days | INT | 周期天数 |
