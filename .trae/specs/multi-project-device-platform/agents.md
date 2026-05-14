@@ -15,15 +15,15 @@
         └── multi-project-device-platform/
             ├── features/                    # 功能模块详细规格文档
             │   ├── 01-project-management.md      # 项目管理模块
-            │   ├── 02-device-management.md        # 设备管理模块
-            │   ├── 03-installation-management.md  # 安装管理模块
-            │   ├── 04-operation-management.md     # 运维管理模块
-            │   ├── 05-report-statistics.md         # 报表统计模块
-            │   ├── 06-system-management.md        # 系统管理模块
-            │   └── 07-business-config.md          # 业务配置模块
+            │   ├── 02-device-management.md        # 设备管理模块（含安装）
+            │   ├── 03-operation-management.md     # 运维管理模块
+            │   ├── 04-report-statistics.md         # 报表统计模块
+            │   ├── 05-system-management.md        # 系统管理模块
+            │   └── 06-business-config.md          # 业务配置模块
             ├── spec.md                      # 主规格说明书（技术要求）
             ├── DATABASE-DESIGN.md           # 数据库设计规范
             ├── CODE-STANDARDS.md            # 代码编码规范
+            ├── agents.md                    # AI Agent入口文档
             ├── tasks.md                    # 任务清单
             └── checklist.md                # 检查清单
 ```
@@ -37,13 +37,13 @@
 | 优先级 | 文件 | 说明 |
 |--------|------|------|
 | P0 | [spec.md](./spec.md) | 主规格说明书，包含技术架构、技术栈、系统架构图 |
-| P0 | [features/06-system-management.md](./features/06-system-management.md) | 系统管理模块详细规格 |
+| P0 | [features/05-system-management.md](./features/05-system-management.md) | 系统管理模块详细规格 |
 | P0 | [features/01-project-management.md](./features/01-project-management.md) | 项目管理模块详细规格 |
-| P0 | [features/02-device-management.md](./features/02-device-management.md) | 设备管理模块详细规格 |
-| P0 | [features/07-business-config.md](./features/07-business-config.md) | 业务配置模块详细规格 |
+| P0 | [features/02-device-management.md](./features/02-device-management.md) | 设备管理模块详细规格（含设备安装） |
+| P0 | [features/06-business-config.md](./features/06-business-config.md) | 业务配置模块详细规格 |
 | P1 | [DATABASE-DESIGN.md](./DATABASE-DESIGN.md) | 数据库设计规范 |
 | P1 | [CODE-STANDARDS.md](./CODE-STANDARDS.md) | 代码编码规范（Java + Vue） |
-| P2 | [features/03-05/*.md](./features/) | 其他模块规格文档 |
+| P2 | [features/03-04/*.md](./features/) | 其他模块规格文档（运维、报表） |
 
 ### 2.2 技术栈汇总
 
@@ -63,12 +63,14 @@
 | 移动端UI | Vant | 最新稳定版 |
 | 状态管理 | Pinia | 最新稳定版 |
 
-### 2.3 四大核心模块
+### 2.3 六大核心模块
 
 1. **系统管理模块** - 认证、用户、角色、权限、配置、日志
 2. **项目管理模块** - 项目、成员、文档、阶段
 3. **业务配置模块** - 设备类型、厂商、型号、专题、维护公司、维护项、巡检模板、备件库
-4. **设备管理模块** - 设备台账、设备档案、巡检、维护工单、故障管理、统计
+4. **设备管理模块** - 设备台账（安装）、设备档案、巡检、维护工单、故障管理、统计
+5. **运维管理模块** - 运维工单、巡检计划、设备维修、备件管理
+6. **报表统计模块** - 数据统计、可视化图表、报表导出
 
 ---
 
@@ -159,7 +161,7 @@
 ```
 1. spec.md (§7.1 系统管理模块)
    ↓
-2. features/06-system-management.md
+2. features/05-system-management.md
    ↓
 3. DATABASE-DESIGN.md (§sys_* 表设计)
    ↓
@@ -173,7 +175,7 @@
    ↓
 2. features/02-device-management.md
    ↓
-3. features/07-business-config.md ← 设备类型、型号等配置
+3. features/06-business-config.md ← 设备类型、型号等配置
    ↓
 4. DATABASE-DESIGN.md (§dev_* 表设计)
    ↓
