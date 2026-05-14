@@ -59,7 +59,7 @@
 | task_no | VARCHAR(50) | 任务编号 |
 | project_id | BIGINT | 项目ID |
 | device_id | BIGINT | 设备ID |
-| site_id | BIGINT | 安装站点ID |
+
 | title | VARCHAR(200) | 任务标题 |
 | description | TEXT | 任务描述 |
 | status | VARCHAR(20) | 任务状态 |
