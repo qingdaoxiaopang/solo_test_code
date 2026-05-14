@@ -1,0 +1,1 @@
+import{a9 as t}from"./index-CB2wlfJe.js";const c=e=>t({url:"/devices",method:"get",params:e}),o=e=>t({url:`/devices/${e}`,method:"get"}),i=e=>t({url:"/devices",method:"post",data:e}),u=(e,r)=>t({url:`/devices/${e}`,method:"put",data:r});export{o as a,i as c,c as g,u};

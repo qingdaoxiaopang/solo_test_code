@@ -1,0 +1,254 @@
+@import './variables.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+
+.text-success {
+  color: $success-color;
+}
+
+.text-warning {
+  color: $warning-color;
+}
+
+.text-danger {
+  color: $danger-color;
+}
+
+.text-info {
+  color: $info-color;
+}
+
+.text-muted {
+  color: $text-color-placeholder;
+}
+
+.text-small {
+  font-size: $font-size-small;
+}
+
+.text-large {
+  font-size: $font-size-large;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.mt-sm { margin-top: $margin-small; }
+.mt-base { margin-top: $margin-base; }
+.mt-lg { margin-top: $margin-large; }
+
+.mb-sm { margin-bottom: $margin-small; }
+.mb-base { margin-bottom: $margin-base; }
+.mb-lg { margin-bottom: $margin-large; }
+
+.ml-sm { margin-left: $margin-small; }
+.ml-base { margin-left: $margin-base; }
+.ml-lg { margin-left: $margin-large; }
+
+.mr-sm { margin-right: $margin-small; }
+.mr-base { margin-right: $margin-base; }
+.mr-lg { margin-right: $margin-large; }
+
+.pt-sm { padding-top: $padding-small; }
+.pt-base { padding-top: $padding-base; }
+.pt-lg { padding-top: $padding-large; }
+
+.pb-sm { padding-bottom: $padding-small; }
+.pb-base { padding-bottom: $padding-base; }
+.pb-lg { padding-bottom: $padding-large; }
+
+.pl-sm { padding-left: $padding-small; }
+.pl-base { padding-left: $padding-base; }
+.pl-lg { padding-left: $padding-large; }
+
+.pr-sm { padding-right: $padding-small; }
+.pr-base { padding-right: $padding-base; }
+.pr-lg { padding-right: $padding-large; }
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.van-cell-group--inset {
+  margin: 0;
+}
+
+.page-container {
+  min-height: 100vh;
+  background: $background-color;
+}
+
+.card {
+  background: #fff;
+  border-radius: $border-radius-large;
+  padding: $padding-base;
+  box-shadow: $box-shadow-light;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  background: $background-color;
+  color: $text-color-secondary;
+
+  &.badge-primary {
+    background: rgba($primary-color, 0.1);
+    color: $primary-color;
+  }
+
+  &.badge-success {
+    background: rgba($success-color, 0.1);
+    color: $success-color;
+  }
+
+  &.badge-warning {
+    background: rgba($warning-color, 0.1);
+    color: $warning-color;
+  }
+
+  &.badge-danger {
+    background: rgba($danger-color, 0.1);
+    color: $danger-color;
+  }
+}
+
+.van-nav-bar {
+  background: #fff;
+}
+
+.van-tabbar {
+  background: #fff;
+}
+
+.van-tabbar-item--active {
+  color: $primary-color;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $transition-duration $transition-function;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform $transition-duration $transition-function;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+
+@media (max-width: 768px) {
+  .pc-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}

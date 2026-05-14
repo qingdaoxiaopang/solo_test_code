@@ -1,0 +1,113 @@
+@import './variables.scss';
+
+.el-button--primary {
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
+
+  &:hover,
+  &:focus {
+    background-color: lighten($primary-color, 10%) !important;
+    border-color: lighten($primary-color, 10%) !important;
+  }
+}
+
+.el-menu {
+  border-right: none !important;
+}
+
+.el-menu-item,
+.el-sub-menu__title {
+  height: 50px !important;
+  line-height: 50px !important;
+}
+
+.el-table {
+  .el-table__header {
+    th {
+      background-color: $background-color !important;
+      color: $text-color-primary;
+      font-weight: 600;
+    }
+  }
+
+  .el-table__row {
+    &:hover > td {
+      background-color: rgba($primary-color, 0.05) !important;
+    }
+  }
+}
+
+.el-card {
+  border-radius: $border-radius-large !important;
+  border: none !important;
+  box-shadow: $box-shadow-light !important;
+}
+
+.el-dialog {
+  border-radius: $border-radius-large !important;
+
+  .el-dialog__header {
+    padding: $padding-base !important;
+    border-bottom: 1px solid $border-color-lighter;
+  }
+
+  .el-dialog__body {
+    padding: $padding-base !important;
+  }
+
+  .el-dialog__footer {
+    padding: $padding-base !important;
+    border-top: 1px solid $border-color-lighter;
+  }
+}
+
+.el-input__wrapper {
+  border-radius: $border-radius !important;
+}
+
+.el-select {
+  .el-input__wrapper {
+    border-radius: $border-radius !important;
+  }
+}
+
+.el-form-item__label {
+  color: $text-color-secondary !important;
+}
+
+.el-pagination {
+  margin-top: $margin-base;
+  justify-content: flex-end;
+}
+
+.el-tag {
+  border-radius: $border-radius !important;
+}
+
+.el-message-box {
+  border-radius: $border-radius-large !important;
+}
+
+.el-dropdown-menu {
+  border-radius: $border-radius-large !important;
+  padding: $padding-small !important;
+}
+
+.el-dropdown-menu__item {
+  border-radius: $border-radius !important;
+  padding: 8px 16px !important;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.1) !important;
+    color: $primary-color !important;
+  }
+
+  &.is-disabled {
+    color: $text-color-disabled !important;
+  }
+}
+
+.el-avatar {
+  background-color: $background-color !important;
+  color: $text-color-secondary !important;
+}
