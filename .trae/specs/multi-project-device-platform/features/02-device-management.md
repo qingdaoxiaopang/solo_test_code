@@ -24,7 +24,7 @@
 | 设备导入导出 | Excel批量导入导出设备数据 | P1 |
 | 设备筛选 | 按专题、设备类型、状态等筛选 | P0 |
 
-### 2.2 设备档案
+### 3.2 设备档案
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -34,7 +34,7 @@
 | 附件管理 | 设备相关附件上传下载 | P0 |
 | 设备照片 | 设备照片、现场照片管理 | P0 |
 
-### 2.3 设备巡检
+### 3.3 设备巡检
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -44,7 +44,7 @@
 | 巡检记录 | 巡检记录查询和详情 | P0 |
 | 巡检统计 | 巡检完成率、异常率统计 | P1 |
 
-### 2.4 设备维护
+### 3.4 设备维护
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -54,7 +54,7 @@
 | 维护工单验收 | 维护完成后验收确认 | P0 |
 | 维护记录 | 维护历史记录查询 | P0 |
 
-### 2.5 设备故障管理
+### 3.5 设备故障管理
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -64,7 +64,7 @@
 | 故障统计 | 故障数量、类型、趋势统计 | P0 |
 | 故障知识库 | 常见故障及解决方案 | P1 |
 
-### 2.6 设备统计
+### 3.6 设备统计
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -94,9 +94,9 @@
 | 工单附件存储 | 存储维护工单处理过程中的附件 |
 | 导入导出文件 | 临时存储设备导入导出Excel文件 |
 
-## 5. 设备信息字段说明
+## 6. 设备信息字段说明
 
-### 5.1 基础信息
+### 6.1 基础信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -107,7 +107,7 @@
 | IMEI | imei | VARCHAR(20) | 设备IMEI号 |
 | 设备所属公司 | company_name | VARCHAR(100) | 设备所属公司名称 |
 
-### 5.2 位置信息
+### 6.2 位置信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -119,7 +119,7 @@
 | 点位名称 | location_name | VARCHAR(100) | 设备安装点位名称 |
 | 是否在窨井内 | in_well | SMALLINT | 是否在窨井内（0-否，1-是） |
 
-### 5.3 安装信息
+### 6.3 安装信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -127,7 +127,7 @@
 | 安装人员 | installer_name | VARCHAR(50) | 安装人员姓名 |
 | 联系电话 | contact_phone | VARCHAR(20) | 联系电话 |
 
-### 5.4 照片信息
+### 6.4 照片信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -135,7 +135,7 @@
 | 现场照片列表 | site_photos | JSONB | 现场照片集合，存储MinIO文件URL |
 | 现场情况说明 | site_description | TEXT | 现场情况文字说明 |
 
-### 5.5 状态信息
+### 6.5 状态信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -146,7 +146,7 @@
 
 ## 7. 数据模型
 
-### 6.1 设备表 (dev_device)
+### 7.1 设备表 (dev_device)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -159,7 +159,7 @@
 | deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
 | remark | VARCHAR(500) | 备注 |
 | project_id | BIGINT | 所属项目ID |
-| topic_code | VARCHAR(50) | 专题代码 |
+| topic_code | VARCHAR(50) | 专题编码 |
 | model_code | VARCHAR(50) | 设备型号编码 |
 | code | VARCHAR(50) | 设备编码（唯一） |
 | third_party_code | VARCHAR(50) | 第三方设备编码 |
@@ -183,7 +183,7 @@
 | last_online_time | TIMESTAMP | 最后在线时间 |
 | last_inspection_time | TIMESTAMP | 最后巡检时间 |
 
-### 6.2 设备参数表 (dev_device_param)
+### 7.2 设备参数表 (dev_device_param)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -200,7 +200,7 @@
 | param_value | VARCHAR(200) | 参数值 |
 | param_unit | VARCHAR(20) | 参数单位 |
 
-### 6.3 设备档案附件表 (dev_device_attachment)
+### 7.3 设备档案附件表 (dev_device_attachment)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -219,7 +219,7 @@
 | file_size | BIGINT | 文件大小 |
 | attachment_type | VARCHAR(20) | 附件类型（TECHNICAL-技术资料，MAINTENANCE-维保资料，OTHER-其他） |
 
-### 6.4 设备生命周期日志表 (dev_device_log)
+### 7.4 设备生命周期日志表 (dev_device_log)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -239,7 +239,7 @@
 | operator_id | BIGINT | 操作人ID |
 | description | TEXT | 事件描述 |
 
-### 6.5 巡检计划表 (dev_inspection_plan)
+### 7.5 巡检计划表 (dev_inspection_plan)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -259,7 +259,7 @@
 | next_execute_time | TIMESTAMP | 下次执行时间 |
 | status | VARCHAR(20) | 状态（ENABLED-启用，DISABLED-停用） |
 
-### 6.6 巡检任务表 (dev_inspection_task)
+### 7.6 巡检任务表 (dev_inspection_task)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -278,7 +278,7 @@
 | execute_time | TIMESTAMP | 实际执行时间 |
 | status | VARCHAR(20) | 状态（PENDING-待执行，COMPLETED-已完成，OVERDUE-已逾期） |
 
-### 6.7 巡检记录表 (dev_inspection_record)
+### 7.7 巡检记录表 (dev_inspection_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -297,9 +297,9 @@
 | result_data | JSONB | 巡检结果数据 |
 | photos | JSONB | 巡检照片，存储MinIO文件URL |
 | status | VARCHAR(20) | 巡检状态（NORMAL-正常，ABNORMAL-异常） |
-| description | TEXT | 巡检说明 |
+| description | TEXT | 巡检说明
 
-### 6.8 维护工单表 (dev_maintenance_order)
+### 7.8 维护工单表 (dev_maintenance_order)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -320,13 +320,12 @@
 | handler_id | BIGINT | 处理人ID |
 | priority | VARCHAR(20) | 优先级（LOW-低，MEDIUM-中，HIGH-高，URGENT-紧急） |
 | status | VARCHAR(20) | 状态（PENDING-待处理，PROCESSING-处理中，COMPLETED-已完成，ACCEPTED-已验收，CANCELLED-已取消） |
-| create_time | TIMESTAMP | 创建时间 |
 | assign_time | TIMESTAMP | 分配时间 |
 | process_time | TIMESTAMP | 处理时间 |
 | complete_time | TIMESTAMP | 完成时间 |
 | accept_time | TIMESTAMP | 验收时间 |
 
-### 6.9 工单处理记录表 (dev_order_record)
+### 7.9 工单处理记录表 (dev_order_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -344,7 +343,7 @@
 | description | TEXT | 操作描述 |
 | attachments | JSONB | 附件，存储MinIO文件URL |
 
-### 6.10 故障记录表 (dev_fault_record)
+### 7.10 故障记录表 (dev_fault_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -457,7 +456,7 @@
 | GET | /api/devices/stats/trend | 设备趋势统计 |
 | GET | /api/devices/map | 设备地图数据 |
 
-## 8. 前端页面
+## 9. 前端页面
 
 | 页面 | 路由 | 说明 |
 |------|------|------|

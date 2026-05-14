@@ -238,6 +238,21 @@
 | phone | VARCHAR(20) | 联系电话 |
 | sort | INT | 排序 |
 
+### 6.8 用户角色关联表 (sys_user_role)
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
+| user_id | BIGINT | 用户ID |
+| role_id | BIGINT | 角色ID |
+
 ## 7. API接口
 
 ### 7.1 认证接口

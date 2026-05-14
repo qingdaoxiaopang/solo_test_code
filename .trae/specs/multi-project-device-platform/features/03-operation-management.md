@@ -97,7 +97,14 @@
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
 | order_no | VARCHAR(50) | 工单编号 |
 | project_id | BIGINT | 项目ID |
 | device_id | BIGINT | 设备ID |
@@ -110,30 +117,40 @@
 | assignee_id | BIGINT | 指派人ID |
 | handler_id | BIGINT | 处理人ID |
 | location | VARCHAR(200) | 故障位置 |
-| photos | TEXT | 照片JSON |
+| photos | JSONB | 照片，存储MinIO文件URL |
 | plan_date | DATE | 计划处理日期 |
-| complete_date | DATETIME | 完成时间 |
+| complete_date | TIMESTAMP | 完成时间 |
 | evaluation | VARCHAR(20) | 满意度评价 |
-| remark | TEXT | 备注 |
-| create_time | DATETIME | 创建时间 |
-| update_time | DATETIME | 更新时间 |
 
 ### 3.2 工单处理记录表 (opr_work_order_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
 | order_id | BIGINT | 工单ID |
 | action | VARCHAR(50) | 操作类型 |
 | content | TEXT | 处理内容 |
 | operator_id | BIGINT | 操作人ID |
-| create_time | DATETIME | 操作时间 |
 
 ### 3.3 巡检计划表 (opr_inspection_plan)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
 | plan_no | VARCHAR(50) | 计划编号 |
 | project_id | BIGINT | 项目ID |
 | name | VARCHAR(100) | 计划名称 |
@@ -141,15 +158,21 @@
 | cycle_value | VARCHAR(50) | 周期值 |
 | start_date | DATE | 开始日期 |
 | end_date | DATE | 结束日期 |
-| route_config | TEXT | 路线配置JSON |
+| route_config | JSONB | 路线配置 |
 | status | VARCHAR(20) | 状态 |
-| create_time | DATETIME | 创建时间 |
 
 ### 3.4 巡检任务表 (opr_inspection_task)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
 | plan_id | BIGINT | 计划ID |
 | task_no | VARCHAR(50) | 任务编号 |
 | project_id | BIGINT | 项目ID |
@@ -157,27 +180,39 @@
 | plan_date | DATE | 计划日期 |
 | actual_date | DATE | 实际日期 |
 | status | VARCHAR(20) | 状态 |
-| create_time | DATETIME | 创建时间 |
 
 ### 3.5 巡检项表 (opr_inspection_item)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
 | task_id | BIGINT | 任务ID |
 | device_id | BIGINT | 设备ID |
 | item_name | VARCHAR(100) | 检查项名称 |
 | check_standard | TEXT | 检查标准 |
 | check_result | VARCHAR(20) | 检查结果 |
 | param_value | VARCHAR(100) | 参数值 |
-| remark | TEXT | 备注 |
-| create_time | DATETIME | 创建时间 |
 
 ### 3.6 备件表 (opr_spare_part)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
+| project_id | BIGINT | 所属项目ID |
 | code | VARCHAR(50) | 备件编码 |
 | name | VARCHAR(100) | 备件名称 |
 | spec | VARCHAR(100) | 规格型号 |
@@ -185,22 +220,25 @@
 | stock | INT | 当前库存 |
 | min_stock | INT | 最低库存 |
 | price | DECIMAL(10,2) | 单价 |
-| remark | TEXT | 备注 |
-| create_time | DATETIME | 创建时间 |
-| update_time | DATETIME | 更新时间 |
 
 ### 3.7 备件使用记录表 (opr_spare_part_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
+| project_id | BIGINT | 所属项目ID |
 | part_id | BIGINT | 备件ID |
 | order_id | BIGINT | 关联工单ID |
 | type | VARCHAR(20) | 类型（入库/出库） |
 | quantity | INT | 数量 |
 | operator_id | BIGINT | 操作人ID |
-| remark | TEXT | 备注 |
-| create_time | DATETIME | 操作时间 |
 
 ## 4. API接口
 

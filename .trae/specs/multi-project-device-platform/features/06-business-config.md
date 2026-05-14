@@ -183,6 +183,7 @@
 | update_time | TIMESTAMP | 更新时间 |
 | deleted | SMALLINT | 是否删除 |
 | remark | VARCHAR(500) | 备注 |
+| project_id | BIGINT | 所属项目ID |
 | code | VARCHAR(50) | 专题编码 |
 | name | VARCHAR(100) | 专题名称 |
 | description | VARCHAR(200) | 描述 |
