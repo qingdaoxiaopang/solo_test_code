@@ -408,3 +408,84 @@ frontend/
 - 用户通过专题权限控制可访问的数据范围
 - 项目之间数据完全隔离
 - 设备必须属于某个项目和某个专题
+
+### 16. Headless API支持
+
+#### 16.1 认证方式
+
+后端接口支持多种认证方式，满足不同客户端的需求：
+
+| 认证方式 | 说明 | 适用场景 |
+|---------|------|---------|
+| Sa-Token Session | 传统Session认证 | PC端、移动端Web |
+| Bearer Token | 无状态Token认证 | 小程序、移动App、第三方集成 |
+| API Key | API密钥认证 | 服务端集成、自动化脚本 |
+
+#### 16.2 Bearer Token认证
+
+- Token格式：`Bearer <token>`
+- Token放置位置：HTTP请求头 `Authorization`
+- Token有效期：可配置，默认7天
+- Token刷新：支持刷新Token机制
+
+#### 16.3 API Key认证
+
+- API Key放置位置：HTTP请求头 `X-API-Key`
+- API Key与Secret配对使用：`X-API-Secret`
+- API Key管理：支持在系统管理中创建、禁用、删除API Key
+- 权限控制：API Key可配置访问权限范围
+
+#### 16.4 API版本控制
+
+- 版本标识方式：URL路径 `/api/v1/`
+- 支持版本：`v1`（当前版本）
+- 向后兼容：新版本发布后，旧版本API保持可用
+
+#### 16.5 无状态设计
+
+- 接口不依赖Session状态
+- 每次请求独立认证
+- 支持水平扩展部署
+
+#### 16.6 限流控制
+
+| 限流类型 | 说明 | 限制策略 |
+|---------|------|---------|
+| 接口限流 | 单接口访问频率限制 | 基于IP或用户，每分钟最大请求数 |
+| 用户限流 | 用户级别总请求限制 | 基于用户ID，每小时最大请求数 |
+| IP限流 | IP地址级别限制 | 基于客户端IP，每分钟最大请求数 |
+
+#### 16.7 Headless API端点
+
+所有业务接口均支持headless访问，端点前缀为 `/api/v1/`
+
+#### 16.8 响应格式
+
+统一JSON响应格式，不返回HTML或视图：
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {},
+  "timestamp": 1620000000000
+}
+```
+
+#### 16.9 CORS配置
+
+支持跨域访问，配置允许的Origin、Method、Header：
+
+| 配置项 | 值 |
+|-------|-----|
+| 允许Origin | *（生产环境可配置具体域名） |
+| 允许Method | GET, POST, PUT, DELETE, OPTIONS |
+| 允许Header | Content-Type, Authorization, X-API-Key, X-API-Secret |
+| 允许Credentials | true |
+
+#### 16.10 安全要求
+
+- API Key需妥善保管，避免泄露
+- Token传输需使用HTTPS
+- 敏感接口需额外校验
+- 日志记录API调用行为

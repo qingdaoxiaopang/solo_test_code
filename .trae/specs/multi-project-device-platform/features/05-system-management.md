@@ -74,6 +74,17 @@
 | 日志导出 | 导出日志数据（Excel格式） | P1 |
 | 日志清理 | 定期清理过期日志 | P1 |
 
+### 2.7 API Key管理
+
+| 功能 | 说明 | 优先级 |
+|------|------|--------|
+| API Key列表 | 展示所有API Key，支持分页、搜索、筛选 | P0 |
+| API Key创建 | 创建新的API Key和Secret | P0 |
+| API Key禁用/启用 | 启用或禁用API Key | P0 |
+| API Key删除 | 删除API Key | P0 |
+| API Key权限配置 | 配置API Key可访问的接口权限 | P1 |
+| API Key使用统计 | 查看API Key调用次数、最后使用时间 | P1 |
+
 ## 3. Redis缓存使用场景
 
 | 场景 | 说明 |
@@ -257,6 +268,30 @@
 | user_id | BIGINT | 用户ID |
 | role_id | BIGINT | 角色ID |
 
+### 6.9 API Key表 (sys_api_key)
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
+| api_key | VARCHAR(64) | API Key（唯一） |
+| api_secret | VARCHAR(128) | API Secret（加密存储） |
+| name | VARCHAR(100) | Key名称 |
+| description | VARCHAR(500) | 描述 |
+| status | VARCHAR(20) | 状态（ACTIVE-启用，DISABLED-禁用） |
+| user_id | BIGINT | 关联用户ID |
+| allowed_ips | TEXT | 允许的IP列表（JSON格式） |
+| allowed_paths | TEXT | 允许访问的路径（JSON格式） |
+| call_count | BIGINT | 调用次数 |
+| last_use_time | TIMESTAMP | 最后使用时间 |
+| expires_at | TIMESTAMP | 过期时间 |
+
 ## 7. API接口
 
 ### 7.1 认证接口
@@ -349,6 +384,29 @@
 | GET | /api/logs/{id} | 日志详情 |
 | DELETE | /api/logs | 清理日志 |
 | GET | /api/logs/export | 导出日志 |
+
+### 7.10 API Key接口
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | /api/api-keys | API Key列表 |
+| POST | /api/api-keys | 创建API Key |
+| GET | /api/api-keys/{id} | API Key详情 |
+| PUT | /api/api-keys/{id} | 更新API Key |
+| DELETE | /api/api-keys/{id} | 删除API Key |
+| PUT | /api/api-keys/{id}/status | 修改状态 |
+| PUT | /api/api-keys/{id}/permissions | 配置权限 |
+| POST | /api/api-keys/{id}/reset-secret | 重置Secret |
+| GET | /api/api-keys/{id}/stats | 获取使用统计 |
+
+### 7.11 Headless认证接口
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | /api/v1/auth/login | 用户名密码登录（返回Bearer Token） |
+| POST | /api/v1/auth/api-key-login | API Key认证（返回Bearer Token） |
+| GET | /api/v1/auth/verify-token | 验证Token有效性 |
+| POST | /api/v1/auth/refresh-token | 刷新Token |
 
 ## 8. 前端页面
 
