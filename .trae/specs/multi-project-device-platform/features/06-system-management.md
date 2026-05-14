@@ -2,23 +2,45 @@
 
 ## 1. 模块概述
 
-系统管理模块负责管理系统的用户权限、字典数据、系统配置和操作日志等系统级功能。
+系统管理模块负责管理系统的用户权限、字典数据、系统配置、操作日志以及平台首页仪表盘等系统级功能，是整个平台的基础支撑模块。
 
 ## 2. 功能清单
 
-### 2.1 用户管理
+### 2.1 认证模块（登录页）
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
-| 用户列表 | 展示所有用户 | P0 |
+| 用户名密码登录 | 用户名+密码认证登录 | P0 |
+| 记住登录状态 | 7天免登录 | P1 |
+| 验证码 | 图形验证码防暴力破解 | P0 |
+| 登录错误提示 | 错误次数限制提示 | P0 |
+| 退出登录 | 清除会话信息 | P0 |
+
+### 2.2 概览模块（首页仪表盘）
+
+| 功能 | 说明 | 优先级 |
+|------|------|--------|
+| 平台统计概览 | 核心数据统计卡片展示 | P0 |
+| 项目数量统计 | 平台项目总数、在线项目数 | P0 |
+| 设备数量统计 | 设备总数、在线设备数、告警设备数 | P0 |
+| 待处理任务统计 | 待处理工单数、待巡检任务数 | P0 |
+| 告警统计 | 今日告警、告警趋势图表 | P0 |
+| 快捷入口 | 常用功能快捷访问 | P1 |
+| 消息通知 | 系统消息、待办事项提醒 | P1 |
+
+### 2.3 用户管理
+
+| 功能 | 说明 | 优先级 |
+|------|------|--------|
+| 用户列表 | 展示所有用户，支持分页、搜索、筛选 | P0 |
 | 用户新增 | 创建新用户 | P0 |
 | 用户编辑 | 编辑用户信息 | P0 |
-| 用户删除 | 删除用户 | P1 |
-| 密码重置 | 重置用户密码 | P0 |
+| 用户禁用/启用 | 启用或禁用用户账号 | P0 |
+| 重置密码 | 重置用户密码为默认密码 | P0 |
 | 密码修改 | 用户修改自己密码 | P0 |
 | 用户详情 | 查看用户信息 | P0 |
 
-### 2.2 角色管理
+### 2.4 角色管理
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -26,53 +48,25 @@
 | 角色新增 | 创建新角色 | P0 |
 | 角色编辑 | 编辑角色信息 | P0 |
 | 角色删除 | 删除角色 | P1 |
-| 角色授权 | 分配角色权限 | P0 |
+| 权限分配 | 分配角色权限 | P0 |
 
-### 2.3 权限管理
-
-| 功能 | 说明 | 优先级 |
-|------|------|--------|
-| 权限列表 | 展示所有权限 | P0 |
-| 权限新增 | 添加新权限 | P1 |
-| 权限编辑 | 编辑权限信息 | P1 |
-| 权限删除 | 删除权限 | P1 |
-| 菜单配置 | 配置系统菜单 | P1 |
-
-### 2.4 部门管理
+### 2.5 系统配置
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
-| 部门列表 | 展示部门树形结构 | P0 |
-| 部门新增 | 创建新部门 | P0 |
-| 部门编辑 | 编辑部门信息 | P0 |
-| 部门删除 | 删除部门 | P1 |
-| 用户归属 | 用户归属部门管理 | P0 |
-
-### 2.5 字典管理
-
-| 功能 | 说明 | 优先级 |
-|------|------|--------|
-| 字典类型 | 字典类型管理 | P0 |
-| 字典项 | 字典项数据管理 | P0 |
-| 数据缓存 | 字典数据缓存 | P1 |
-| 导入导出 | 字典数据导入导出 | P2 |
+| 基础配置 | 平台名称、Logo配置 | P0 |
+| 邮件配置 | 邮件服务器、SMTP配置 | P1 |
+| 短信配置 | 短信服务商配置 | P2 |
+| 通知配置 | 站内通知配置 | P2 |
 
 ### 2.6 操作日志
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
-| 日志列表 | 展示操作日志 | P0 |
-| 日志查询 | 多条件查询日志 | P0 |
-| 日志导出 | 导出日志数据 | P1 |
-| 日志清理 | 定期清理日志 | P1 |
-
-### 2.7 系统设置
-
-| 功能 | 说明 | 优先级 |
-|------|------|--------|
-| 基本设置 | 系统基本配置 | P1 |
-| 通知设置 | 站内消息配置 | P2 |
-| 安全设置 | 安全策略配置 | P1 |
+| 日志列表 | 展示操作日志，支持分页、条件查询 | P0 |
+| 日志详情 | 查看单条日志详细信息 | P0 |
+| 日志导出 | 导出日志数据（Excel格式） | P1 |
+| 日志清理 | 定期清理过期日志 | P1 |
 
 ## 3. 预定义角色
 
@@ -89,7 +83,14 @@
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除（0-未删除，1-已删除） |
+| remark | VARCHAR(500) | 备注 |
 | username | VARCHAR(50) | 用户名（唯一） |
 | password | VARCHAR(100) | 密码（加密） |
 | real_name | VARCHAR(50) | 真实姓名 |
@@ -97,63 +98,92 @@
 | phone | VARCHAR(20) | 手机号 |
 | avatar | VARCHAR(500) | 头像URL |
 | dept_id | BIGINT | 部门ID |
-| status | VARCHAR(20) | 状态 |
-| last_login_time | DATETIME | 最后登录时间 |
-| create_time | DATETIME | 创建时间 |
-| update_time | DATETIME | 更新时间 |
+| status | VARCHAR(20) | 状态（ACTIVE-正常，DISABLED-禁用） |
+| last_login_time | TIMESTAMP | 最后登录时间 |
 
 ### 4.2 角色表 (sys_role)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
 | code | VARCHAR(50) | 角色编码 |
 | name | VARCHAR(50) | 角色名称 |
 | description | VARCHAR(200) | 描述 |
 | status | VARCHAR(20) | 状态 |
-| create_time | DATETIME | 创建时间 |
 
 ### 4.3 权限表 (sys_permission)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
 | parent_id | BIGINT | 父权限ID |
 | name | VARCHAR(50) | 权限名称 |
 | code | VARCHAR(100) | 权限编码 |
-| type | VARCHAR(20) | 权限类型 |
+| type | VARCHAR(20) | 权限类型（MENU-菜单，BUTTON-按钮，API-接口） |
 | url | VARCHAR(200) | 权限URL |
 | method | VARCHAR(20) | 请求方法 |
 | sort | INT | 排序 |
-| create_time | DATETIME | 创建时间 |
 
 ### 4.4 字典表 (sys_dict)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
 | name | VARCHAR(50) | 字典名称 |
 | code | VARCHAR(50) | 字典编码 |
 | description | VARCHAR(200) | 描述 |
-| create_time | DATETIME | 创建时间 |
 
 ### 4.5 字典项表 (sys_dict_item)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
 | dict_id | BIGINT | 字典ID |
 | label | VARCHAR(50) | 标签 |
 | value | VARCHAR(100) | 值 |
 | sort | INT | 排序 |
 | status | VARCHAR(20) | 状态 |
-| create_time | DATETIME | 创建时间 |
 
 ### 4.6 操作日志表 (sys_log)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| id | BIGINT | 主键 |
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
 | user_id | BIGINT | 用户ID |
 | username | VARCHAR(50) | 用户名 |
 | operation | VARCHAR(50) | 操作类型 |
@@ -165,11 +195,48 @@
 | result | TEXT | 返回结果 |
 | error_msg | TEXT | 错误信息 |
 | duration | INT | 耗时(ms) |
-| create_time | DATETIME | 操作时间 |
+
+### 4.7 部门表 (sys_dept)
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| id | BIGINT | 主键（雪花算法） |
+| create_by | BIGINT | 创建人ID |
+| create_dept_id | BIGINT | 创建人部门ID |
+| update_by | BIGINT | 更新人ID |
+| create_time | TIMESTAMP | 创建时间 |
+| update_time | TIMESTAMP | 更新时间 |
+| deleted | SMALLINT | 是否删除 |
+| remark | VARCHAR(500) | 备注 |
+| parent_id | BIGINT | 父部门ID |
+| name | VARCHAR(50) | 部门名称 |
+| code | VARCHAR(50) | 部门编码 |
+| leader | VARCHAR(50) | 负责人 |
+| phone | VARCHAR(20) | 联系电话 |
+| sort | INT | 排序 |
 
 ## 5. API接口
 
-### 5.1 用户接口
+### 5.1 认证接口
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | /api/auth/login | 用户登录 |
+| POST | /api/auth/logout | 退出登录 |
+| GET | /api/auth/userinfo | 获取当前用户信息 |
+| PUT | /api/auth/password | 修改密码 |
+
+### 5.2 首页统计接口
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | /api/dashboard/stats | 获取首页统计数据 |
+| GET | /api/dashboard/project-stats | 项目统计 |
+| GET | /api/dashboard/device-stats | 设备统计 |
+| GET | /api/dashboard/task-stats | 待处理任务统计 |
+| GET | /api/dashboard/alert-stats | 告警统计 |
+
+### 5.3 用户接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -182,7 +249,7 @@
 | PUT | /api/users/password | 修改密码 |
 | PUT | /api/users/{id}/status | 修改状态 |
 
-### 5.2 角色接口
+### 5.4 角色接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -195,7 +262,7 @@
 | PUT | /api/roles/{id}/permissions | 分配权限 |
 | POST | /api/users/{userId}/roles | 分配用户角色 |
 
-### 5.3 权限接口
+### 5.5 权限接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -204,7 +271,7 @@
 | PUT | /api/permissions/{id} | 更新权限 |
 | DELETE | /api/permissions/{id} | 删除权限 |
 
-### 5.4 部门接口
+### 5.6 部门接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -213,42 +280,41 @@
 | PUT | /api/departments/{id} | 更新部门 |
 | DELETE | /api/departments/{id} | 删除部门 |
 
-### 5.5 字典接口
+### 5.7 系统配置接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/dicts | 字典类型列表 |
-| POST | /api/dicts | 创建字典 |
-| PUT | /api/dicts/{id} | 更新字典 |
-| DELETE | /api/dicts/{id} | 删除字典 |
-| GET | /api/dicts/{code}/items | 字典项列表 |
-| POST | /api/dicts/{dictId}/items | 创建字典项 |
-| PUT | /api/dicts/items/{id} | 更新字典项 |
-| DELETE | /api/dicts/items/{id} | 删除字典项 |
+| GET | /api/system/config | 获取系统配置 |
+| PUT | /api/system/config | 更新系统配置 |
+| GET | /api/system/config/{key} | 获取指定配置项 |
+| PUT | /api/system/config/{key} | 更新指定配置项 |
 
-### 5.6 日志接口
+### 5.8 日志接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | GET | /api/logs | 日志列表 |
 | GET | /api/logs/{id} | 日志详情 |
 | DELETE | /api/logs | 清理日志 |
+| GET | /api/logs/export | 导出日志 |
 
 ## 6. 前端页面
 
 | 页面 | 路由 | 说明 |
 |------|------|------|
+| 登录页 | /login | 用户登录 |
+| 首页仪表盘 | /dashboard | 平台统计概览 |
 | 用户管理 | /system/users | 用户列表 |
 | 角色管理 | /system/roles | 角色列表 |
 | 权限管理 | /system/permissions | 权限配置 |
 | 部门管理 | /system/departments | 部门列表 |
 | 字典管理 | /system/dicts | 字典管理 |
 | 操作日志 | /system/logs | 日志列表 |
-| 系统设置 | /system/settings | 系统设置 |
+| 系统配置 | /system/settings | 系统设置 |
 
-## 8. 验证标准
+## 7. 验证标准
 
-### 8.1 单元测试验证标准
+### 7.1 单元测试验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
@@ -256,26 +322,41 @@
 | 权限验证 | 权限控制逻辑 | 权限验证正确 | P0 |
 | 密码加密 | 密码加密存储 | 加密正确 | P0 |
 | 字典缓存 | 字典数据缓存 | 缓存正确更新 | P1 |
+| 登录认证 | Token生成和验证 | 认证正确 | P0 |
+| 仪表盘统计 | 统计数据准确性 | 数据准确 | P0 |
 
-### 8.2 集成测试验证标准
+### 7.2 集成测试验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
 | 登录验证 | 用户登录登出 | 验证正确 | P0 |
 | 权限拦截 | 无权限访问拦截 | 正确拦截 | P0 |
 | 审计日志 | 操作日志记录 | 日志正确记录 | P0 |
+| 会话管理 | Token过期验证 | 正确处理过期 | P0 |
 
-### 8.3 UI交互验证标准
+### 7.3 UI交互验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
+| 登录页 | 登录表单验证 | 验证正确提示 | P0 |
+| 仪表盘 | 统计卡片加载 | 加载正常，数据准确 | P0 |
 | 权限树 | 权限树选择 | 树形结构正确 | P0 |
 | 角色分配 | 角色权限分配 | 操作正确保存 | P0 |
 | 密码修改 | 密码修改流程 | 修改验证正确 | P0 |
 
-### 8.4 验收测试用例
+### 7.4 验收测试用例
 
-#### 测试用例 01: 完整权限流程
+#### 测试用例 01: 用户登录流程
+
+| 步骤 | 操作 | 预期结果 |
+|------|------|----------|
+| 1 | 输入正确的用户名和密码 | 登录成功，跳转首页 |
+| 2 | 查看首页仪表盘 | 显示项目统计、设备统计、待处理任务等 |
+| 3 | 点击退出登录 | 退出成功，跳转登录页 |
+| 4 | 输入错误的密码 | 提示密码错误，验证码刷新 |
+| 5 | 连续5次登录失败 | 账号被锁定提示 |
+
+#### 测试用例 02: 完整权限流程
 
 | 步骤 | 操作 | 预期结果 |
 |------|------|----------|
@@ -286,12 +367,12 @@
 | 5 | 无权限功能检查 | 无权限被正确拦截 |
 | 6 | 用户操作记录 | 操作日志正确记录 |
 
-#### 测试用例 02: 字典管理
+#### 测试用例 03: 仪表盘数据展示
 
 | 步骤 | 操作 | 预期结果 |
 |------|------|----------|
-| 1 | 新增字典类型 | 类型创建成功 |
-| 2 | 添加字典项 | 字典项添加成功 |
-| 3 | 使用字典数据 | 数据正确使用 |
-| 4 | 修改字典项 | 修改正确更新 |
-
+| 1 | 登录后进入首页 | 自动加载仪表盘数据 |
+| 2 | 查看项目统计卡片 | 显示项目总数、在线项目数 |
+| 3 | 查看设备统计卡片 | 显示设备总数、在线设备、告警设备 |
+| 4 | 查看待处理任务 | 显示待处理工单数、待巡检任务数 |
+| 5 | 查看告警统计 | 显示今日告警数量、告警趋势图 |
