@@ -293,7 +293,7 @@
 | execute_time | TIMESTAMP | 实际执行时间 |
 | status | VARCHAR(20) | 状态（PENDING-待执行，COMPLETED-已完成，OVERDUE-已逾期） |
 
-### 7.7 巡检记录表 (dev_inspection_record)
+### 7.9 巡检记录表 (dev_inspection_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -312,9 +312,9 @@
 | result_data | JSONB | 巡检结果数据 |
 | photos | JSONB | 巡检照片，存储MinIO文件URL |
 | status | VARCHAR(20) | 巡检状态（NORMAL-正常，ABNORMAL-异常） |
-| description | TEXT | 巡检说明
+| description | TEXT | 巡检说明 |
 
-### 7.8 维护工单表 (dev_maintenance_order)
+### 7.10 维护工单表 (dev_maintenance_order)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -340,7 +340,7 @@
 | complete_time | TIMESTAMP | 完成时间 |
 | accept_time | TIMESTAMP | 验收时间 |
 
-### 7.9 工单处理记录表 (dev_order_record)
+### 7.11 工单处理记录表 (dev_order_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -358,7 +358,7 @@
 | description | TEXT | 操作描述 |
 | attachments | JSONB | 附件，存储MinIO文件URL |
 
-### 7.10 故障记录表 (dev_fault_record)
+### 7.12 故障记录表 (dev_fault_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -574,7 +574,7 @@
 | 故障管理 | 故障上报、处理、统计 | 功能正常 | P0 |
 | 设备统计 | 统计数据准确性 | 数据准确 | P0 |
 
-### 8.2 集成测试验证标准
+### 11.2 集成测试验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
@@ -602,7 +602,7 @@
 | 图片加载 | 多张设备照片 | 加载不阻塞 | P1 |
 | 地图性能 | 1000个设备标记 | 地图渲染流畅 | P1 |
 
-### 8.5 验收测试用例
+### 11.5 验收测试用例
 
 #### 测试用例 01: 设备入库
 
