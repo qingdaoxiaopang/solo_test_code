@@ -2,7 +2,7 @@
 
 ## 1. 模块概述
 
-设备管理模块负责管理企业所有设备资产，实现设备台账管理、全生命周期追踪、设备档案、设备巡检、设备维护和故障管理等功能。设备是平台的核心业务对象，与项目、专题、维护公司等有密切关联。
+设备管理模块负责管理企业所有设备资产，实现设备台账管理、全生命周期追踪、设备档案、设备巡检、设备维护和故障管理等功能。设备是平台的核心业务对象，与项目、专题、维护公司等有密切关联。使用Redis缓存设备热点数据，MinIO存储设备相关的照片、附件等文件。
 
 ## 2. 功能清单
 
@@ -67,9 +67,30 @@
 | 维保统计 | 维保计划执行统计 | P0 |
 | 趋势分析 | 设备运行趋势分析 | P1 |
 
-## 3. 设备信息字段说明
+## 3. Redis缓存使用场景
 
-### 3.1 基础信息
+| 场景 | 说明 |
+|------|------|
+| 设备详情缓存 | 缓存常用设备的详细信息，减少数据库查询 |
+| 设备列表缓存 | 缓存设备列表查询结果，提升列表加载速度 |
+| 设备统计数据缓存 | 缓存设备统计、状态分布等数据 |
+| 设备位置信息缓存 | 缓存设备GPS位置信息，支持地图快速加载 |
+| 字典数据缓存 | 缓存设备类型、状态等字典数据 |
+
+## 4. MinIO对象存储使用场景
+
+| 场景 | 说明 |
+|------|------|
+| 设备照片存储 | 存储设备照片、现场照片等图片文件 |
+| 设备档案附件 | 存储设备的技术文档、维保记录等附件 |
+| 巡检照片存储 | 存储巡检任务执行过程中拍摄的照片 |
+| 故障现场照片 | 存储设备故障现场照片 |
+| 工单附件存储 | 存储维护工单处理过程中的附件 |
+| 导入导出文件 | 临时存储设备导入导出Excel文件 |
+
+## 5. 设备信息字段说明
+
+### 5.1 基础信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -80,7 +101,7 @@
 | IMEI | imei | VARCHAR(20) | 设备IMEI号 |
 | 设备所属公司 | company_name | VARCHAR(100) | 设备所属公司名称 |
 
-### 3.2 位置信息
+### 5.2 位置信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -92,7 +113,7 @@
 | 点位名称 | location_name | VARCHAR(100) | 设备安装点位名称 |
 | 是否在窨井内 | in_well | SMALLINT | 是否在窨井内（0-否，1-是） |
 
-### 3.3 安装信息
+### 5.3 安装信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -100,15 +121,15 @@
 | 安装人员 | installer_name | VARCHAR(50) | 安装人员姓名 |
 | 联系电话 | contact_phone | VARCHAR(20) | 联系电话 |
 
-### 3.4 照片信息
+### 5.4 照片信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
-| 设备照片列表 | device_photos | JSONB | 设备照片集合 |
-| 现场照片列表 | site_photos | JSONB | 现场照片集合 |
+| 设备照片列表 | device_photos | JSONB | 设备照片集合，存储MinIO文件URL |
+| 现场照片列表 | site_photos | JSONB | 现场照片集合，存储MinIO文件URL |
 | 现场情况说明 | site_description | TEXT | 现场情况文字说明 |
 
-### 3.5 状态信息
+### 5.5 状态信息
 
 | 字段名称 | 字段编码 | 类型 | 说明 |
 |----------|----------|------|------|
@@ -117,9 +138,9 @@
 | 最后在线时间 | last_online_time | TIMESTAMP | 最后在线时间 |
 | 最后巡检时间 | last_inspection_time | TIMESTAMP | 最后巡检时间 |
 
-## 4. 数据模型
+## 6. 数据模型
 
-### 4.1 设备表 (dev_device)
+### 6.1 设备表 (dev_device)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -148,15 +169,15 @@
 | install_date | DATE | 安装日期 |
 | installer_name | VARCHAR(50) | 安装人员 |
 | contact_phone | VARCHAR(20) | 联系电话 |
-| device_photos | JSONB | 设备照片列表 |
-| site_photos | JSONB | 现场照片列表 |
+| device_photos | JSONB | 设备照片列表，存储MinIO文件URL |
+| site_photos | JSONB | 现场照片列表，存储MinIO文件URL |
 | site_description | TEXT | 现场情况说明 |
 | debug_status | VARCHAR(20) | 调试状态 |
 | status | VARCHAR(20) | 设备状态 |
 | last_online_time | TIMESTAMP | 最后在线时间 |
 | last_inspection_time | TIMESTAMP | 最后巡检时间 |
 
-### 4.2 设备参数表 (dev_device_param)
+### 6.2 设备参数表 (dev_device_param)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -173,7 +194,7 @@
 | param_value | VARCHAR(200) | 参数值 |
 | param_unit | VARCHAR(20) | 参数单位 |
 
-### 4.3 设备档案附件表 (dev_device_attachment)
+### 6.3 设备档案附件表 (dev_device_attachment)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -187,12 +208,12 @@
 | remark | VARCHAR(500) | 备注 |
 | device_id | BIGINT | 设备ID |
 | name | VARCHAR(100) | 附件名称 |
-| file_url | VARCHAR(500) | 文件URL |
+| file_url | VARCHAR(500) | 文件URL（MinIO存储路径） |
 | file_type | VARCHAR(20) | 文件类型 |
 | file_size | BIGINT | 文件大小 |
 | attachment_type | VARCHAR(20) | 附件类型（TECHNICAL-技术资料，MAINTENANCE-维保资料，OTHER-其他） |
 
-### 4.4 设备生命周期日志表 (dev_device_log)
+### 6.4 设备生命周期日志表 (dev_device_log)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -212,7 +233,7 @@
 | operator_id | BIGINT | 操作人ID |
 | description | TEXT | 事件描述 |
 
-### 4.5 巡检计划表 (dev_inspection_plan)
+### 6.5 巡检计划表 (dev_inspection_plan)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -232,7 +253,7 @@
 | next_execute_time | TIMESTAMP | 下次执行时间 |
 | status | VARCHAR(20) | 状态（ENABLED-启用，DISABLED-停用） |
 
-### 4.6 巡检任务表 (dev_inspection_task)
+### 6.6 巡检任务表 (dev_inspection_task)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -251,7 +272,7 @@
 | execute_time | TIMESTAMP | 实际执行时间 |
 | status | VARCHAR(20) | 状态（PENDING-待执行，COMPLETED-已完成，OVERDUE-已逾期） |
 
-### 4.7 巡检记录表 (dev_inspection_record)
+### 6.7 巡检记录表 (dev_inspection_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -268,11 +289,11 @@
 | executor_id | BIGINT | 执行人ID |
 | execute_time | TIMESTAMP | 执行时间 |
 | result_data | JSONB | 巡检结果数据 |
-| photos | JSONB | 巡检照片 |
+| photos | JSONB | 巡检照片，存储MinIO文件URL |
 | status | VARCHAR(20) | 巡检状态（NORMAL-正常，ABNORMAL-异常） |
 | description | TEXT | 巡检说明 |
 
-### 4.8 维护工单表 (dev_maintenance_order)
+### 6.8 维护工单表 (dev_maintenance_order)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -299,7 +320,7 @@
 | complete_time | TIMESTAMP | 完成时间 |
 | accept_time | TIMESTAMP | 验收时间 |
 
-### 4.9 工单处理记录表 (dev_order_record)
+### 6.9 工单处理记录表 (dev_order_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -315,9 +336,9 @@
 | operator_id | BIGINT | 操作人ID |
 | action | VARCHAR(50) | 操作类型（CREATE-创建，ASSIGN-分配，PROCESS-处理，COMPLETE-完成，ACCEPT-验收，CANCEL-取消） |
 | description | TEXT | 操作描述 |
-| attachments | JSONB | 附件 |
+| attachments | JSONB | 附件，存储MinIO文件URL |
 
-### 4.10 故障记录表 (dev_fault_record)
+### 6.10 故障记录表 (dev_fault_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -343,10 +364,11 @@
 | solution | TEXT | 解决方案 |
 | status | VARCHAR(20) | 状态（REPORTED-已上报，PROCESSING-处理中，RESOLVED-已解决，CLOSED-已关闭） |
 | resolve_time | TIMESTAMP | 解决时间 |
+| photos | JSONB | 故障现场照片，存储MinIO文件URL |
 
-## 5. API接口
+## 7. API接口
 
-### 5.1 设备台账接口
+### 7.1 设备台账接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -359,20 +381,22 @@
 | POST | /api/devices/import | 导入设备数据 |
 | GET | /api/devices/{id}/lifecycle | 设备生命周期 |
 | PUT | /api/devices/{id}/status | 更新设备状态 |
+| POST | /api/devices/{id}/photos | 上传设备照片到MinIO |
+| POST | /api/devices/{id}/site-photos | 上传现场照片到MinIO |
 
-### 5.2 设备档案接口
+### 7.2 设备档案接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | GET | /api/devices/{id}/params | 设备参数列表 |
 | PUT | /api/devices/{id}/params | 更新设备参数 |
 | GET | /api/devices/{id}/attachments | 设备附件列表 |
-| POST | /api/devices/{id}/attachments | 上传设备附件 |
+| POST | /api/devices/{id}/attachments | 上传设备附件到MinIO |
 | DELETE | /api/devices/{id}/attachments/{attachmentId} | 删除附件 |
 | GET | /api/devices/{id}/maintenance-records | 维保记录 |
 | GET | /api/devices/{id}/fault-records | 故障历史 |
 
-### 5.3 巡检接口
+### 7.3 巡检接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -386,7 +410,7 @@
 | GET | /api/inspection/records/{id} | 巡检记录详情 |
 | GET | /api/inspection/stats | 巡检统计 |
 
-### 5.4 维护工单接口
+### 7.4 维护工单接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -400,8 +424,9 @@
 | PUT | /api/maintenance/orders/{id}/accept | 验收工单 |
 | PUT | /api/maintenance/orders/{id}/cancel | 取消工单 |
 | GET | /api/maintenance/orders/{id}/records | 工单处理记录 |
+| POST | /api/maintenance/orders/{id}/attachments | 上传工单附件到MinIO |
 
-### 5.5 故障管理接口
+### 7.5 故障管理接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -414,8 +439,9 @@
 | PUT | /api/faults/{id}/close | 关闭故障 |
 | GET | /api/faults/stats | 故障统计 |
 | GET | /api/faults/knowledge | 故障知识库 |
+| POST | /api/faults/{id}/photos | 上传故障现场照片到MinIO |
 
-### 5.6 设备统计接口
+### 7.6 设备统计接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -425,7 +451,7 @@
 | GET | /api/devices/stats/trend | 设备趋势统计 |
 | GET | /api/devices/map | 设备地图数据 |
 
-## 6. 前端页面
+## 8. 前端页面
 
 | 页面 | 路由 | 说明 |
 |------|------|------|
@@ -442,7 +468,7 @@
 | 故障详情 | /devices/faults/:id | 故障详情 |
 | 设备统计 | /devices/stats | 设备统计 |
 
-## 7. 业务流程
+## 9. 业务流程
 
 ### 7.1 设备入库流程
 
