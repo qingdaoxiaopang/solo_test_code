@@ -80,29 +80,7 @@
 | 公司删除 | 删除公司（需确认无关联工单） | P0 |
 | 可维护型号配置 | 配置公司可维护的设备型号 | P0 |
 
-### 2.8 维护项配置
-
-| 功能 | 说明 | 优先级 |
-|------|------|--------|
-| 维护项列表 | 展示所有维护项模板 | P0 |
-| 维护项新增 | 创建新维护项 | P0 |
-| 维护项编辑 | 修改维护项信息 | P0 |
-| 维护项删除 | 删除维护项 | P0 |
-| 维护周期设置 | 设置维护项的执行周期 | P0 |
-| 维护项模板 | 维护项标准作业模板 | P0 |
-
-### 3.9 巡检模板配置
-
-| 功能 | 说明 | 优先级 |
-|------|------|--------|
-| 巡检模板列表 | 展示所有巡检模板 | P0 |
-| 巡检模板新增 | 创建新巡检模板 | P0 |
-| 巡检模板编辑 | 修改巡检模板信息 | P0 |
-| 巡检模板删除 | 删除巡检模板 | P0 |
-| 巡检项配置 | 配置巡检模板包含的巡检项 | P0 |
-| 巡检周期设置 | 设置巡检任务的执行周期 | P0 |
-
-### 3.10 备件库管理
+### 2.8 备件库管理
 
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
@@ -254,81 +232,7 @@
 | company_id | BIGINT | 维护公司ID |
 | model_id | BIGINT | 设备型号ID |
 
-### 3.9 维护项表 (cfg_maintenance_item)
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键（雪花算法） |
-| create_by | BIGINT | 创建人ID |
-| create_dept_id | BIGINT | 创建人部门ID |
-| update_by | BIGINT | 更新人ID |
-| create_time | TIMESTAMP | 创建时间 |
-| update_time | TIMESTAMP | 更新时间 |
-| deleted | SMALLINT | 是否删除 |
-| remark | VARCHAR(500) | 备注 |
-| project_id | BIGINT | 所属项目ID |
-| code | VARCHAR(50) | 维护项编码 |
-| name | VARCHAR(100) | 维护项名称 |
-| description | TEXT | 描述 |
-| cycle_type | VARCHAR(20) | 周期类型（DAILY-每日，WEEKLY-每周，MONTHLY-每月，QUARTERLY-每季度，YEARLY-每年） |
-| cycle_days | INT | 周期天数 |
-| template | TEXT | 维护作业模板 |
-
-### 3.10 设备类型维护项关联表 (cfg_device_type_maintenance)
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键（雪花算法） |
-| create_by | BIGINT | 创建人ID |
-| create_dept_id | BIGINT | 创建人部门ID |
-| update_by | BIGINT | 更新人ID |
-| create_time | TIMESTAMP | 创建时间 |
-| update_time | TIMESTAMP | 更新时间 |
-| deleted | SMALLINT | 是否删除 |
-| remark | VARCHAR(500) | 备注 |
-| device_type_id | BIGINT | 设备类型ID |
-| maintenance_item_id | BIGINT | 维护项ID |
-
-### 3.11 巡检模板表 (cfg_inspection_template)
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键（雪花算法） |
-| create_by | BIGINT | 创建人ID |
-| create_dept_id | BIGINT | 创建人部门ID |
-| update_by | BIGINT | 更新人ID |
-| create_time | TIMESTAMP | 创建时间 |
-| update_time | TIMESTAMP | 更新时间 |
-| deleted | SMALLINT | 是否删除 |
-| remark | VARCHAR(500) | 备注 |
-| project_id | BIGINT | 所属项目ID |
-| code | VARCHAR(50) | 模板编码 |
-| name | VARCHAR(100) | 模板名称 |
-| cycle_type | VARCHAR(20) | 周期类型 |
-| cycle_days | INT | 周期天数 |
-| description | TEXT | 描述 |
-
-### 3.12 巡检项表 (cfg_inspection_item)
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键（雪花算法） |
-| create_by | BIGINT | 创建人ID |
-| create_dept_id | BIGINT | 创建人部门ID |
-| update_by | BIGINT | 更新人ID |
-| create_time | TIMESTAMP | 创建时间 |
-| update_time | TIMESTAMP | 更新时间 |
-| deleted | SMALLINT | 是否删除 |
-| remark | VARCHAR(500) | 备注 |
-| template_id | BIGINT | 巡检模板ID |
-| name | VARCHAR(100) | 巡检项名称 |
-| description | TEXT | 巡检项描述 |
-| inspection_type | VARCHAR(20) | 巡检类型（CHECKBOX-检查项，INPUT-输入项，SELECT-选择项） |
-| options | TEXT | 选项（JSON格式，用于选择型巡检项） |
-| required | SMALLINT | 是否必填（0-否，1-是） |
-| sort | INT | 排序 |
-
-### 3.13 备件分类表 (cfg_spare_part_category)
+### 3.9 备件分类表 (cfg_spare_part_category)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -346,7 +250,7 @@
 | code | VARCHAR(50) | 分类编码 |
 | sort | INT | 排序 |
 
-### 3.14 备件表 (cfg_spare_part)
+### 3.10 备件表 (cfg_spare_part)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -368,7 +272,7 @@
 | warn_quantity | DECIMAL(10,2) | 预警库存数量 |
 | price | DECIMAL(10,2) | 单价 |
 
-### 3.15 备件申请记录表 (cfg_spare_part_record)
+### 3.11 备件申请记录表 (cfg_spare_part_record)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -453,31 +357,7 @@
 | POST | /api/config/maintenance-companies/{id}/models | 配置可维护型号 |
 | DELETE | /api/config/maintenance-companies/{id}/models/{modelId} | 移除可维护型号 |
 
-### 4.7 维护项接口
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | /api/config/maintenance-items | 维护项列表 |
-| POST | /api/config/maintenance-items | 创建维护项 |
-| PUT | /api/config/maintenance-items/{id} | 更新维护项 |
-| DELETE | /api/config/maintenance-items/{id} | 删除维护项 |
-| GET | /api/config/maintenance-items/{id} | 获取维护项详情 |
-| POST | /api/config/device-types/{id}/maintenance-items | 关联设备类型维护项 |
-
-### 4.8 巡检模板接口
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | /api/config/inspection-templates | 巡检模板列表 |
-| POST | /api/config/inspection-templates | 创建巡检模板 |
-| PUT | /api/config/inspection-templates/{id} | 更新巡检模板 |
-| DELETE | /api/config/inspection-templates/{id} | 删除巡检模板 |
-| GET | /api/config/inspection-templates/{id}/items | 获取模板巡检项 |
-| POST | /api/config/inspection-templates/{id}/items | 添加巡检项 |
-| PUT | /api/config/inspection-templates/{id}/items/{itemId} | 更新巡检项 |
-| DELETE | /api/config/inspection-templates/{id}/items/{itemId} | 删除巡检项 |
-
-### 4.8 备件库接口
+### 4.7 备件库接口
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -505,8 +385,6 @@
 | 专题设备类型 | /config/topics/:id/device-types | 专题设备类型配置 |
 | 用户专题权限 | /config/user-topics | 用户专题权限配置 |
 | 维护公司管理 | /config/maintenance-companies | 维护公司列表 |
-| 维护项配置 | /config/maintenance-items | 维护项列表 |
-| 巡检模板配置 | /config/inspection-templates | 巡检模板列表 |
 | 备件库管理 | /config/spare-parts | 备件库管理 |
 
 ## 7. 业务流程
@@ -548,9 +426,9 @@
 4. 创建工单时，只能分配给有对应型号维护能力的公司
 ```
 
-## 8. 验证标准
+## 6. 验证标准
 
-### 7.1 单元测试验证标准
+### 6.1 单元测试验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
@@ -560,12 +438,10 @@
 | 专题CRUD | 专题增删改查 | 功能正常 | P0 |
 | 专题设备类型关联 | 添加、移除设备类型 | 关联正确 | P0 |
 | 用户专题关联 | 添加、移除用户专题 | 关联正确 | P0 |
-| 维护项配置 | 维护项增删改查，周期设置 | 功能正常 | P0 |
-| 巡检模板配置 | 模板增删改查，巡检项配置 | 功能正常 | P0 |
 | 备件库管理 | 备件增删改查，库存管理 | 功能正常 | P0 |
 | 项目数据隔离 | 不同项目配置数据隔离 | 隔离正确 | P0 |
 
-### 8.2 集成测试验证标准
+### 6.2 集成测试验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
@@ -573,15 +449,14 @@
 | 关联数据验证 | 删除被引用的配置项 | 提示不能删除或级联删除 | P0 |
 | 缓存一致性 | 配置更新后缓存刷新 | 缓存正确更新 | P0 |
 
-### 8.3 UI交互验证标准
+### 6.3 UI交互验证标准
 
 | 测试项 | 验证要点 | 预期结果 | 优先级 |
 |--------|----------|----------|--------|
 | 设备类型树 | 树形结构展示和操作 | 操作流畅，层级正确 | P0 |
 | 关联选择 | 多选设备类型/型号 | 选择正确保存 | P0 |
-| 周期配置 | 周期类型和天数配置 | 配置正确 | P0 |
 
-### 8.4 验收测试用例
+### 6.4 验收测试用例
 
 #### 测试用例 01: 设备类型管理
 
@@ -601,12 +476,3 @@
 | 2 | 进入专题详情 | 显示专题信息 |
 | 3 | 添加可管理的设备类型 | 添加成功 |
 | 4 | 为用户分配该专题 | 用户可访问该专题数据 |
-
-#### 测试用例 03: 巡检模板配置
-
-| 步骤 | 操作 | 预期结果 |
-|------|------|----------|
-| 1 | 创建巡检模板"日常巡检" | 模板创建成功 |
-| 2 | 配置巡检周期为每周一次 | 周期设置成功 |
-| 3 | 添加巡检项（检查设备状态、记录数值） | 巡检项添加成功 |
-| 4 | 设置巡检项类型为输入型 | 类型设置正确 |
