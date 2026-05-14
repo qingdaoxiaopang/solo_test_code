@@ -253,10 +253,12 @@
 | remark | VARCHAR(500) | 备注 |
 | project_id | BIGINT | 项目ID |
 | name | VARCHAR(100) | 计划名称 |
-| cycle_type | VARCHAR(20) | 周期类型 |
-| cycle_days | INT | 周期天数 |
-| next_execute_time | TIMESTAMP | 下次执行时间 |
-| status | VARCHAR(20) | 状态（ENABLED-启用，DISABLED-停用） |
+| start_time | TIMESTAMP | 开始时间 |
+| end_time | TIMESTAMP | 结束时间 |
+| device_ids | TEXT | 关联设备列表（JSON数组） |
+| executor_ids | TEXT | 巡检人员列表（JSON数组） |
+| enabled_status | VARCHAR(20) | 启用状态（ENABLED-启用，DISABLED-停用） |
+| completed_status | VARCHAR(20) | 完成状态（IN_PROGRESS-进行中，COMPLETED-已完成） |
 
 ### 7.6 巡检任务表 (dev_inspection_task)
 
