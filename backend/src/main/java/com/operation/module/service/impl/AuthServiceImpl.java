@@ -2,6 +2,7 @@ package com.operation.module.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.operation.common.entity.LoginUser;
+import com.operation.common.BusinessException;
 import com.operation.module.entity.SysUser;
 import com.operation.module.service.IAuthService;
 import com.operation.module.service.ISysUserService;
@@ -28,15 +29,15 @@ public class AuthServiceImpl implements IAuthService {
     public Map<String, Object> login(String username, String password) {
         SysUser user = sysUserService.selectUserByUsername(username);
         if (user == null) {
-            throw new RuntimeException("用户名或密码错误");
+            throw new BusinessException("用户名或密码错误");
         }
         
         if (!"0".equals(user.getStatus())) {
-            throw new RuntimeException("账号已被禁用");
+            throw new BusinessException("账号已被禁用");
         }
         
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("用户名或密码错误");
+            throw new BusinessException("用户名或密码错误");
         }
         
         StpUtil.login(user.getId());
@@ -75,7 +76,7 @@ public class AuthServiceImpl implements IAuthService {
         SysUser user = sysUserService.selectUserById(userId);
         
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new RuntimeException("原密码错误");
+            throw new BusinessException("原密码错误");
         }
         
         return sysUserService.resetPassword(userId, newPassword);

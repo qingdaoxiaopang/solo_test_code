@@ -8,6 +8,9 @@ import java.io.Serializable;
 @Data
 public class BaseEntity implements Serializable {
 
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private Long id;
+
     @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
@@ -21,5 +24,6 @@ public class BaseEntity implements Serializable {
     private LocalDateTime updateTime;
 
     @TableField("del_flag")
+    @TableLogic
     private Integer delFlag;
 }

@@ -29,7 +29,7 @@
         <minio.version>8.5.7</minio.version>
         <hutool.version>5.8.26</hutool.version>
         <knife4j.version>4.5.0</knife4j.version>
-        < Lombok.version>1.18.32</Lombok.version>
+        <lombok.version>1.18.32</lombok.version>
         <fastjson2.version>2.0.47</fastjson2.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
     </properties>
@@ -115,6 +115,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
         <!-- Hutool 工具库 -->
         <dependency>
             <groupId>cn.hutool</groupId>

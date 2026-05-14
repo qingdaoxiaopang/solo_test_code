@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-@MapperScan("com.operation.mapper")
+@MapperScan({"com.operation.module.mapper", "com.operation.module.config.mapper"})
 public class OperationApplication {
 
     public static void main(String[] args) {
