@@ -15,6 +15,7 @@
 | 功能 | 说明 | 优先级 |
 |------|------|--------|
 | 用户名密码登录 | 用户名+密码认证登录 | P0 |
+| 微信小程序登录 | 微信授权登录，绑定用户账号 | P0 |
 | 记住登录状态 | 7天免登录 | P1 |
 | 验证码 | 图形验证码防暴力破解 | P0 |
 | 登录错误提示 | 错误次数限制提示 | P0 |
@@ -123,6 +124,9 @@
 | dept_id | BIGINT | 部门ID |
 | status | VARCHAR(20) | 状态（ACTIVE-正常，DISABLED-禁用） |
 | last_login_time | TIMESTAMP | 最后登录时间 |
+| wx_openid | VARCHAR(100) | 微信小程序openid |
+| wx_unionid | VARCHAR(100) | 微信unionid |
+| wx_nickname | VARCHAR(100) | 微信昵称 |
 
 ### 6.2 角色表 (sys_role)
 
@@ -260,6 +264,7 @@
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | POST | /api/auth/login | 用户登录 |
+| POST | /api/auth/wx-miniapp-login | 微信小程序登录 |
 | POST | /api/auth/logout | 退出登录 |
 | GET | /api/auth/userinfo | 获取当前用户信息 |
 | PUT | /api/auth/password | 修改密码 |
