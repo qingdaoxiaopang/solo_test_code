@@ -52,6 +52,7 @@
 | 专题删除 | 删除专题（需确认无关联数据） | P0 |
 | 专题名称 | 专题显示名称 | P0 |
 | 专题编码 | 专题唯一编码 | P0 |
+| 专题初始化 | 为项目初始化预置专题（GAS-燃气、DRAIN-排水、SUPPLY-供水、FIRE-消防、BRIDGE-桥梁、HEAT-热力） | P0 |
 
 ### 3.5 专题设备类型配置
 
@@ -430,6 +431,7 @@
 | GET | /api/config/topics/{id}/device-types | 获取专题设备类型 |
 | POST | /api/config/topics/{id}/device-types | 添加专题设备类型 |
 | DELETE | /api/config/topics/{id}/device-types/{typeId} | 移除专题设备类型 |
+| POST | /api/config/topics/init | 初始化预置专题（GAS、DRAIN、SUPPLY、FIRE、BRIDGE、HEAT） |
 
 ### 4.5 用户专题权限接口
 
