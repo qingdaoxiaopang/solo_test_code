@@ -316,8 +316,112 @@ backend/
 │   │   └── dashboard/
 │   └── resources/
 │       ├── application.yml
+│       ├── application-dev.yml
+│       ├── application-prd.yml
 │       └── db/
 │           └── schema.sql
+```
+
+#### 13.3 多环境配置
+
+后端支持多环境配置，通过Spring Profiles实现：
+
+| 环境 | 配置文件 | 说明 | 激活方式 |
+|------|----------|------|---------|
+| 开发环境 | application-dev.yml | 开发调试使用 | 默认激活 |
+| 生产环境 | application-prd.yml | 生产环境部署使用 | spring.profiles.active=prd |
+
+##### application.yml（基础配置）
+
+```yaml
+spring:
+  profiles:
+    active: dev  # 默认开发环境，可改为 prd 切换到生产环境
+  application:
+    name: multi-project-device-platform
+```
+
+##### application-dev.yml（开发环境）
+
+```yaml
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/device_platform
+    username: postgres
+    password: postgres123
+  redis:
+    host: localhost
+    port: 6379
+    password: 
+  minio:
+    endpoint: http://localhost:9000
+    accessKey: minioadmin
+    secretKey: minioadmin
+    bucketName: device-platform
+
+sa-token:
+  token-name: Authorization
+  timeout: 604800  # 7天
+  active-timeout: -1
+  is-concurrent: true
+  is-share: false
+  token-style: uuid
+
+logging:
+  level:
+    com.operation: debug
+```
+
+##### application-prd.yml（生产环境）
+
+```yaml
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:device_platform}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 2
+  minio:
+    endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+    accessKey: ${MINIO_ACCESS_KEY:}
+    secretKey: ${MINIO_SECRET_KEY:}
+    bucketName: ${MINIO_BUCKET:device-platform}
+
+sa-token:
+  token-name: Authorization
+  timeout: 604800
+  active-timeout: -1
+  is-concurrent: true
+  is-share: false
+  token-style: uuid
+
+logging:
+  level:
+    com.operation: info
+  file:
+    name: /var/log/device-platform/application.log
 ```
 
 #### 13.2 前端目录结构
