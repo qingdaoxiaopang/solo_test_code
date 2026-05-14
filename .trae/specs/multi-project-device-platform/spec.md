@@ -513,9 +513,9 @@ frontend/
 - 项目之间数据完全隔离
 - 设备必须属于某个项目和某个专题
 
-### 16. Headless API支持
+### 17. Headless API支持
 
-#### 16.1 认证方式
+#### 17.1 认证方式
 
 后端接口支持多种认证方式，满足不同客户端的需求：
 
@@ -525,14 +525,14 @@ frontend/
 | Bearer Token | 无状态Token认证 | 小程序、移动App、第三方集成 |
 | API Key | API密钥认证 | 服务端集成、自动化脚本 |
 
-#### 16.2 Bearer Token认证
+#### 17.2 Bearer Token认证
 
 - Token格式：`Bearer <token>`
 - Token放置位置：HTTP请求头 `Authorization`
 - Token有效期：可配置，默认7天
 - Token刷新：支持刷新Token机制
 
-#### 16.3 API Key认证
+#### 17.3 API Key认证
 
 - API Key放置位置：HTTP请求头 `X-API-Key`
 - API Key与Secret配对使用：`X-API-Secret`
@@ -559,7 +559,7 @@ frontend/
 | 用户限流 | 用户级别总请求限制 | 基于用户ID，每小时最大请求数 |
 | IP限流 | IP地址级别限制 | 基于客户端IP，每分钟最大请求数 |
 
-#### 16.7 Headless API端点
+#### 17.7 Headless API端点
 
 所有业务接口均支持headless访问，端点前缀为 `/api/v1/`
 
@@ -587,7 +587,7 @@ frontend/
 | 允许Header | Content-Type, Authorization, X-API-Key, X-API-Secret |
 | 允许Credentials | true |
 
-#### 16.10 安全要求
+#### 17.10 安全要求
 
 - API Key需妥善保管，避免泄露
 - Token传输需使用HTTPS
