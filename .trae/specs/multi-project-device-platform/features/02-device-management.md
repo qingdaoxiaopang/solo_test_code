@@ -255,12 +255,26 @@
 | name | VARCHAR(100) | 计划名称 |
 | start_time | TIMESTAMP | 开始时间 |
 | end_time | TIMESTAMP | 结束时间 |
-| device_ids | TEXT | 关联设备列表（JSON数组） |
-| executor_ids | TEXT | 巡检人员列表（JSON数组） |
 | enabled_status | VARCHAR(20) | 启用状态（ENABLED-启用，DISABLED-停用） |
 | completed_status | VARCHAR(20) | 完成状态（IN_PROGRESS-进行中，COMPLETED-已完成） |
 
-### 7.6 巡检任务表 (dev_inspection_task)
+### 7.6 巡检计划设备关联表 (dev_inspection_plan_device)
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| id | BIGINT | 主键（雪花算法） |
+| plan_id | BIGINT | 巡检计划ID |
+| device_id | BIGINT | 设备ID |
+
+### 7.7 巡检计划人员关联表 (dev_inspection_plan_executor)
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| id | BIGINT | 主键（雪花算法） |
+| plan_id | BIGINT | 巡检计划ID |
+| executor_id | BIGINT | 巡检人员ID |
+
+### 7.8 巡检任务表 (dev_inspection_task)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
